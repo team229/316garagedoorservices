@@ -1,0 +1,16 @@
+# Bunny Storage credentials
+.env
+.env.production
+
+# Astro build cache / deps (not used by this static site, present for consistency)
+node_modules/
+.astro/
+dist/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Logs
+*.log
