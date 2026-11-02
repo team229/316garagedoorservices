@@ -1108,3 +1108,52 @@ html,body{overflow-x:hidden}
   .ty-hero{padding-bottom:52px}
   .ty-actions{gap:24px}
 }
+
+/* =========================================================================
+   Thank-you page — mobile pass + Home in the primary nav
+   ========================================================================= */
+@media (max-width:640px){
+  /* hero: smaller headline, full-width taps */
+  .ty-hero{padding-bottom:46px}
+  .ty-hero h1{font-size:clamp(2.05rem,8.6vw,2.7rem);line-height:1.08}
+  .ty-hero p{font-size:1rem;margin-top:16px}
+  .ty-badge{font-size:.62rem;padding:8px 12px;margin-bottom:16px}
+  .ty-hero .actions{gap:10px}
+  .ty-hero .actions .btn{width:100%}
+
+  /* tighter vertical rhythm so the page is not a 5,000px scroll */
+  .page-thankyou .section{padding:64px 0}
+  .steps .step{padding:26px 0 20px}
+  .ty-actions{gap:20px}
+  .ty-actions h2{font-size:1.7rem;margin:6px 0 10px}
+  .ty-actions p{font-size:.95rem}
+  .ty-actions .actions{width:100%;gap:10px}
+  .ty-actions .actions .btn{flex:1 1 46%;justify-content:center;padding:14px 12px}
+
+  /* coverage band reads as a dense list on phones */
+  .areas{padding:56px 0}
+  .areas h2{font-size:1.9rem}
+  .arealist{margin-top:16px;font-size:.92rem;line-height:1.72;font-weight:800}
+
+  /* the floating call pill is smaller so it covers less copy */
+  .float-contact{padding:11px 14px;font-size:.66rem;right:14px;bottom:14px}
+}
+
+/* nav with Home added — keep it on one line down to the 950px breakpoint */
+@media (max-width:1180px) and (min-width:951px){
+  .navlinks{gap:12px;font-size:.66rem}
+  .brand-logo{width:210px}
+}
+
+@media (max-width:640px){
+  .page-thankyou .call-fab{display:none}
+}
+
+/* small phones: keep the logo, the quote button and the menu on one line */
+@media (max-width:420px){
+  .nav{gap:8px}
+  .brand-logo{width:158px;height:56px}
+  .navright{gap:8px}
+  .navright .btn{font-size:.62rem!important;padding:11px 11px!important;letter-spacing:.05em;white-space:nowrap}
+  .hamb{width:42px;height:42px;display:grid;place-items:center;font-size:22px;line-height:1}
+}
