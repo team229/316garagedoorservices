@@ -197,3 +197,114 @@
   var yr = document.getElementById('yr');
   if (yr) yr.textContent = new Date().getFullYear();
 })();
+
+/* ---------- Lead forms → api-inform.bythub.in ---------- */
+(function () {
+  var ENDPOINT = 'https://api-inform.bythub.in/?formId=bD6o5ijDFglII94iWzgh';
+  var forms = document.querySelectorAll('[data-lead-form]');
+  if (!forms.length) return;
+
+  function setStatus(form, msg, state) {
+    var el = form.querySelector('.lf-status');
+    if (!el) return;
+    el.textContent = msg || '';
+    if (state) { el.setAttribute('data-state', state); } else { el.removeAttribute('data-state'); }
+  }
+
+  function markInvalid(form, field) {
+    if (field) field.setAttribute('aria-invalid', 'true');
+  }
+
+  function clearInvalid(form) {
+    Array.prototype.forEach.call(form.querySelectorAll('[aria-invalid]'), function (f) {
+      f.removeAttribute('aria-invalid');
+    });
+  }
+
+  function readForm(form) {
+    var data = {};
+    Array.prototype.forEach.call(form.elements, function (el) {
+      if (!el.name || el.type === 'submit' || el.type === 'button') return;
+      data[el.name] = (el.value || '').replace(/\s+/g, ' ').trim();
+    });
+    return data;
+  }
+
+  Array.prototype.forEach.call(forms, function (form) {
+    var btn = form.querySelector('button[type="submit"]');
+    var label = btn ? btn.textContent : 'Send';
+    var sending = false;
+    var sent = false;
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (sending || sent) return;
+      clearInvalid(form);
+      setStatus(form, '');
+
+      var data = readForm(form);
+
+      /* honeypot — bots fill it, humans never see it */
+      if (data.company) {
+        form.reset();
+        setStatus(form, 'Thanks — your request is in.', 'ok');
+        return;
+      }
+
+      var bad = [];
+      var nameEl = form.elements['name'];
+      var phoneEl = form.elements['phone'];
+      var emailEl = form.elements['email'];
+      var msgEl = form.elements['message'];
+
+      if (!data.name || data.name.length < 2) { markInvalid(form, nameEl); bad.push(nameEl); }
+      if (!data.phone || data.phone.replace(/[^0-9]/g, '').length < 10) { markInvalid(form, phoneEl); bad.push(phoneEl); }
+      if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email)) { markInvalid(form, emailEl); bad.push(emailEl); }
+      if (!data.message || data.message.length < 6) { markInvalid(form, msgEl); bad.push(msgEl); }
+
+      if (bad.length) {
+        setStatus(form, 'Please check the highlighted fields — we need a name, a callback number and a short description.', 'error');
+        if (bad[0]) bad[0].focus();
+        return;
+      }
+
+      var detail = data.message +
+        '\n\nPhone: ' + data.phone +
+        (data.service ? '\nService: ' + data.service : '') +
+        '\nPage: ' + location.href;
+
+      var payload = {
+        name: data.name,
+        email: data.email || 'no-email@316garagedoorservices.com',
+        phone: data.phone,
+        service: data.service || '',
+        message: detail,
+        source: form.getAttribute('data-source') || 'website',
+        page: location.href
+      };
+
+      sending = true;
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      setStatus(form, 'Sending…');
+
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        sent = true;
+        try {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: 'lead_form_success', form: payload.source });
+        } catch (err) { /* analytics optional */ }
+        window.location.assign('/thank-you/?src=' + (payload.source === 'home-page' ? 'home' : 'contact'));
+      }).catch(function () {
+        setStatus(form, 'That did not send. Please call 604-388-9868 or email 316garagedoorservices@gmail.com.', 'error');
+      }).then(function () {
+        sending = false;
+        if (btn) { btn.disabled = false; btn.textContent = label; }
+      });
+    });
+  });
+})();
