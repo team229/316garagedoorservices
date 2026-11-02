@@ -50,7 +50,7 @@ footer{padding:42px 0;border-top:1px solid var(--line);color:#81909b;font-size:.
 @media(max-width:950px){.navlinks{display:none}.hamb{display:block}.phone{display:none}.hero{min-height:auto;padding:130px 0 75px}.hero-grid,.photo-split,.smart-grid,.contactbox{grid-template-columns:1fr}.hero-door-area{height:500px}.services,.reviewgrid,.diag-grid{grid-template-columns:1fr 1fr}.statgrid{grid-template-columns:1fr 1fr}.stat:nth-child(2){border:0}.areasgrid,.section-head{display:block}.arealist{margin-top:25px}.steps{grid-template-columns:1fr 1fr}.step:nth-child(2){border-right:0}.gallery-grid{grid-template-columns:1fr 1fr;grid-auto-rows:230px}.gphoto:first-child{grid-column:span 2}}
 @media(max-width:600px){.wrap{width:min(calc(100% - 28px),var(--max))}.top .hours{display:none}.top{font-size:.63rem}.nav{height:70px}.hero-grid{padding-top:30px}.hero h1{font-size:3.3rem}.hero-copy>p{font-size:1rem}.hero-door-area{height:350px}.hero-house{height:320px}.garage-opening{top:90px}.hero-chip{bottom:0}.services,.reviewgrid,.diag-grid,.statgrid,.steps,.feature-list{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line)}.step{border-right:0;border-bottom:1px solid #cbd1d4}.section{padding:78px 0}.photo img,.photo{min-height:420px;height:420px}.phone-card{width:280px}.gallery-grid{display:grid;grid-template-columns:1fr;grid-auto-rows:215px}.gphoto:first-child{grid-column:auto}.contactbox{padding:30px 22px}.foot{display:block}.foot div+div{margin-top:10px}}
 
-.brand-logo{width:205px;height:70px;display:flex;align-items:center}
+.brand-logo{width:240px;height:70px;display:flex;align-items:center}
 .brand-logo img{display:block;width:100%;height:100%;object-fit:contain;object-position:left center;filter:drop-shadow(0 7px 18px rgba(0,0,0,.22))}
 .hero{background:
 radial-gradient(circle at 76% 35%,rgba(198, 247, 209,.14),transparent 24%),
@@ -93,7 +93,7 @@ linear-gradient(135deg,#263f4f,#07131c 70%)}
 .door-controls button:hover{background:#c6f7d1;color:#071018;border-color:#e0fce7;transform:translateY(-2px)}
 .door-hint{position:absolute;right:18px;bottom:18px;z-index:6;background:#071018d9;border:1px solid #ffffff20;color:#e0fce7;padding:7px 10px;font-size:8px;font-weight:900;letter-spacing:.12em;animation:hintpulse 2.4s infinite}
 @keyframes hintpulse{0%,100%{opacity:.75}50%{opacity:1;box-shadow:0 0 0 5px rgba(198, 247, 209,.08)}}
-@media(max-width:600px){.brand-logo{width:175px;height:62px}.door-controls button{width:82px;height:54px}.door-hint{display:none}}
+@media(max-width:600px){.brand-logo{width:190px;height:62px}.door-controls button{width:82px;height:54px}.door-hint{display:none}}
 
 
 .photo-fallback{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:30px;background:
