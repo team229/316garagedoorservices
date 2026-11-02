@@ -890,3 +890,117 @@ html,body{overflow-x:hidden}
   .navlinks a:last-child{border-bottom:0}
 }
 @media(max-width:400px){ .top{font-size:.62rem} }
+
+/* =========================================================================
+   v12 — legibility pass + card motion
+   Text on light surfaces was sitting at ~3.9:1 (grey) or ~1.1:1 (pale mint
+   on white). Everything below is scoped to the surface it sits on.
+   ========================================================================= */
+
+/* --- copy on light surfaces → AA+ (6:1+) --- */
+.section-head p,.step p,.service p{color:#47535d}
+.light .relcard span,.byline,.light .postcard p,.light .gfig figcaption{color:#4d5963}
+.review p{color:#45515b}
+.postcard .pcm{color:#55616b}
+.rev .rsrc,.rev .rwho span,.review .tag{color:#5a6672}
+
+/* --- accent text on light surfaces: pale mint was invisible on white --- */
+.light .relcard em,
+.light .postcard .pccat,
+.postcard .pccat{color:#0b5c33}
+
+/* --- links inside light content; buttons keep their own colour --- */
+.content a:not(.btn){color:var(--gold2)}
+.light .content a:not(.btn){color:#0b5c33}
+.content a.btn{color:#071018}
+.light .content a.btn{color:#071018}
+
+/* --- button edge on the light-green fill needed a real boundary --- */
+.hero .btn.gold{border-color:rgba(7,16,24,.28)!important}
+
+/* =========================================================================
+   Card motion — hover lift, accent edge, media zoom, arrow slide
+   ========================================================================= */
+:root{--card-ease:cubic-bezier(.2,.8,.2,1)}
+
+@media (prefers-reduced-motion: no-preference){
+
+  .relcard,.postcard,.review,.faq-item,.diag,.step,.gphoto,.rev{
+    transition:transform .45s var(--card-ease),box-shadow .45s var(--card-ease),
+               border-color .35s ease,background-color .35s ease;
+    will-change:transform;
+  }
+
+  .relcard:hover,.postcard:hover,.review:hover,.faq-item:hover,
+  .diag:hover,.step:hover,.gphoto:hover,.rev:hover{
+    transform:translateY(-8px);
+    box-shadow:0 22px 48px rgba(4,12,20,.16);
+  }
+
+  /* dark cards get a glow rather than a drop shadow */
+  .relcard:hover,.postcard:hover,.rev:hover{
+    box-shadow:0 22px 52px rgba(0,0,0,.42);
+  }
+
+  /* accent edge grows in from the left on hover */
+  .postcard,.relcard,.review,.faq-item,.diag,.step{position:relative}
+  .postcard::before,.relcard::before,.review::before,.faq-item::before,.diag::before,.step::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:var(--gold);transform:scaleY(0);transform-origin:top;
+    transition:transform .4s var(--card-ease);pointer-events:none;z-index:2;
+  }
+  .postcard:hover::before,.relcard:hover::before,.review:hover::before,
+  .faq-item:hover::before,.diag:hover::before,.step:hover::before{transform:scaleY(1)}
+
+  /* media zoom inside blog / gallery cards */
+  .postcard .pcimg img,.gphoto img{transition:transform .7s var(--card-ease)}
+  .postcard:hover .pcimg img,.gphoto:hover img{transform:scale(1.06)}
+
+  /* arrows and labels nudge toward the reader */
+  .relcard em,.postcard .pcm,.service a,.city a{transition:transform .35s var(--card-ease),color .3s ease}
+  .relcard:hover em,.postcard:hover .pcm,.service:hover a,.city:hover a{transform:translateX(4px)}
+
+  /* icons lift a touch */
+  .service:hover .icon,.diag:hover .pulse{transform:translateY(-2px) scale(1.05)}
+  .service .icon,.diag .pulse{transition:transform .4s var(--card-ease),background-color .4s ease,color .4s ease}
+
+  /* scroll-in cascade for card grids */
+  /* uses the independent `translate` property so hover `transform` still wins */
+  @keyframes cardRise{from{opacity:0;translate:0 26px}to{opacity:1;translate:0 0}}
+  .reveal.on{animation:cardRise .7s var(--card-ease) both}
+  .services>.reveal:nth-child(2),.relgrid>.reveal:nth-child(2),.reviewgrid>.reveal:nth-child(2),
+  .diag-grid>.reveal:nth-child(2),.postgrid>.reveal:nth-child(2),.steps>.reveal:nth-child(2){animation-delay:.07s}
+  .services>.reveal:nth-child(3),.relgrid>.reveal:nth-child(3),.reviewgrid>.reveal:nth-child(3),
+  .diag-grid>.reveal:nth-child(3),.postgrid>.reveal:nth-child(3),.steps>.reveal:nth-child(3){animation-delay:.14s}
+  .services>.reveal:nth-child(4),.relgrid>.reveal:nth-child(4),.reviewgrid>.reveal:nth-child(4),
+  .steps>.reveal:nth-child(4){animation-delay:.21s}
+  .services>.reveal:nth-child(5),.relgrid>.reveal:nth-child(5),.reviewgrid>.reveal:nth-child(5){animation-delay:.28s}
+  .services>.reveal:nth-child(6),.relgrid>.reveal:nth-child(6){animation-delay:.35s}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1!important;transform:none!important}
+  .relcard:hover,.postcard:hover,.review:hover,.faq-item:hover,
+  .diag:hover,.step:hover,.gphoto:hover,.rev:hover{transform:none}
+}
+
+/* --- card copy: a touch larger so it reads at a glance --- */
+.service p{font-size:.94rem;line-height:1.62}
+.service a{font-size:.74rem}
+.relcard span{font-size:.9rem;line-height:1.6}
+.postcard p{font-size:.9rem;line-height:1.6}
+.postcard h3{font-size:1.2rem}
+.faq-item p{font-size:.95rem}
+.review p{font-size:.95rem}
+
+/* accent edge needs a darker tone on light cards */
+.review::before,.step::before,.light .postcard::before,.light .relcard::before{background:#0b5c33}
+
+/* --- top strip: never clip mid-word on narrow screens --- */
+.top .wrap>div{min-width:0}
+@media (max-width:640px){
+  .top .wrap{gap:10px}
+  .top .online{flex:0 0 auto}
+  .top .wrap>div:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .online{white-space:nowrap}
+}
