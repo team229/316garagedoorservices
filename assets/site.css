@@ -1157,3 +1157,16 @@ html,body{overflow-x:hidden}
   .navright .btn{font-size:.62rem!important;padding:11px 11px!important;letter-spacing:.05em;white-space:nowrap}
   .hamb{width:42px;height:42px;display:grid;place-items:center;font-size:22px;line-height:1}
 }
+
+/* =========================================================================
+   Hero background — garage bay scene (photo + closed sectional door)
+   Slightly brighter render and a lighter scrim so the door reads, while the
+   copy column keeps a dark backing.
+   ========================================================================= */
+.hero-bg img{filter:brightness(1.1) saturate(.96) contrast(1.03)}
+.hero-bg-scrim{background:
+  linear-gradient(90deg,rgba(5,14,22,.88) 0%,rgba(5,14,22,.78) 32%,rgba(5,14,22,.5) 60%,rgba(5,14,22,.2) 100%),
+  linear-gradient(180deg,rgba(5,14,22,.55) 0%,rgba(5,14,22,.1) 28%,rgba(5,14,22,.8) 100%)}
+
+/* keep the door's window row in view on tall viewports */
+.hero-bg img{object-position:center 42%}
