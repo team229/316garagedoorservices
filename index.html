@@ -47,7 +47,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=20">
+<link rel="stylesheet" href="/assets/site.css?v=26">
 
 <script type="application/ld+json">
 {
@@ -177,7 +177,17 @@
 
 <main id="main" role="main">
 <section class="hero">
-<div class="hero-bg" aria-hidden="true"><img src="/img/hero-garage-bay.webp" alt="" width="1576" height="750" fetchpriority="high" decoding="async"><span class="hero-bg-scrim"></span></div>
+<div class="hero-bg" aria-hidden="true">
+<div class="hero-scene" id="houseWrap">
+<div class="house photoscene" id="house">
+<img class="scene-bay" src="/img/hero-bay-empty.webp" alt="" width="1576" height="750" fetchpriority="high" decoding="async">
+<div class="door-clip"><img class="door-leaf-img" src="/img/hero-door-leaf.webp" alt="" width="1414" height="747" decoding="async"></div>
+<div class="bay-shadow"></div>
+<div class="drive-spill"></div>
+</div>
+</div>
+<span class="hero-bg-scrim"></span>
+</div>
 
 <div class="wrap hero-grid">
 <div class="hero-copy reveal">
@@ -196,6 +206,10 @@
 <span class="go-amount">$25&ndash;$50 <em>off</em></span>
 <span class="go-sub">any garage door repair</span>
 <span class="go-fine">Repair pricing varies by project &middot; Mention this offer when you book &middot; One per household &middot; Repairs only, valid 30 days</span>
+</div>
+<div class="console door-console">
+<div class="readout"><i class="lamp" aria-hidden="true"></i><div><div class="rlabel">Door status</div><div class="rvalue" id="doorStatus" aria-live="polite">Closed &amp; secure</div></div></div>
+<div class="console-btns"><button class="dbtn" id="openDoor" type="button" aria-pressed="false">Open door</button><button class="dbtn" id="closeDoor" type="button" aria-pressed="true">Close door</button></div>
 </div>
 </div>
 </div>
@@ -471,6 +485,6 @@ GARAGE DOOR REPAIR <i>◆</i> BROKEN SPRINGS <i>◆</i> OPENERS <i>◆</i> INSTA
 <div class="footbottom"><span>&copy; <span id="yr">2026</span> 316 Garage Door Services &middot; Langley, British Columbia &middot; All rights reserved.</span><span>Garage door repair &amp; installation across Metro Vancouver and the Fraser Valley.</span></div>
 </div></footer>
 
-<script src="/assets/site.js?v=7" defer></script>
+<script src="/assets/site.js?v=8" defer></script>
 </body>
 </html>

@@ -54,6 +54,25 @@
     } else { runCounters(); }
   }
 
+  /* ---------- Hero scene sizing (cover, aspect-locked) ---------- */
+  (function () {
+    var bg = document.querySelector('.hero-bg'),
+        scene = document.querySelector('.hero-scene');
+    if (!bg || !scene) return;
+    var RATIO = 1576 / 750;
+    var size = function () {
+      var w = bg.clientWidth, h = bg.clientHeight;
+      if (!w || !h) return;
+      var sw = Math.max(w, h * RATIO);
+      scene.style.width = sw + 'px';
+      scene.style.height = (sw / RATIO) + 'px';
+    };
+    size();
+    window.addEventListener('resize', size);
+    window.addEventListener('orientationchange', size);
+    if (window.ResizeObserver) { new ResizeObserver(size).observe(bg); }
+  })();
+
   /* ---------- Hero garage door (homepage) ---------- */
   var house = document.getElementById('house'),
       houseWrap = document.getElementById('houseWrap'),

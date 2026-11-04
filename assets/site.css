@@ -516,8 +516,7 @@ a:hover{transform:translateY(-2px)}button:hover{transform:translateY(-3px)}
 .hero-chip .tel-line:hover{text-decoration:underline}
 
 /* ---- buttons sitting on the photo need a real edge and backing ---- */
-.hero .btn.outline,
-.dbtn{
+.hero .btn.outline{
   background:rgba(6,16,26,.78)!important;
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
   border:1.5px solid rgba(214,228,240,.62)!important;
@@ -527,14 +526,7 @@ a:hover{transform:translateY(-2px)}button:hover{transform:translateY(-3px)}
 .hero .btn.outline:hover{
   background:rgba(198, 247, 209,.96)!important;border-color:var(--gold2)!important;color:#071018!important;
 }
-.dbtn:hover{
-  background:var(--gold)!important;border-color:var(--gold2)!important;color:#071018!important;
-}
-/* the active one stays gold and obvious */
-.dbtn[aria-pressed="true"]{
-  background:var(--gold)!important;border-color:#fff3d6!important;color:#071018!important;
-  box-shadow:0 8px 26px rgba(198, 247, 209,.4);
-}
+.dbtn:hover{background:var(--gold);border-color:var(--gold2);color:#071018}
 /* gold primary gets a crisp edge too */
 .hero .btn.gold{border:1.5px solid #e0fce7!important;box-shadow:0 8px 26px rgba(0,0,0,.4)}
 
@@ -1180,4 +1172,53 @@ html,body{overflow-x:hidden}
 @media (max-width:360px){
   .brand-logo{width:156px;height:52px}
   .navright .btn{font-size:.58rem!important;padding:10px 9px!important}
+}
+
+/* =========================================================================
+   Hero scene — the sectional door lifts out of the opening and the garage
+   lights up behind it (ported from the design file)
+   ========================================================================= */
+.hero-scene{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  background:#05090c;overflow:hidden}
+.hero-bg .photoscene{width:100%;height:100%;aspect-ratio:auto!important;overflow:hidden;
+  filter:brightness(1.1) saturate(.96) contrast(1.03)}
+.hero-bg .photoscene:after{display:none}
+.hero-bg .photoscene img{filter:none}
+.hero-bg .scene-bay{display:block;width:100%;height:100%;object-fit:fill}
+.hero-scene .door-clip{z-index:2}
+.hero-scene .bay-shadow,.hero-scene .drive-spill{z-index:3}
+.hero-scene .bay-shadow{background:linear-gradient(rgba(0,0,0,.78),rgba(0,0,0,0))}
+.hero-scene .drive-spill{background:radial-gradient(60% 120% at 50% 0%,rgba(255,205,140,.42),rgba(255,205,140,0) 72%)}
+.hero-scene .house.is-open .door-leaf-img{transform:translateY(-100%)}
+
+/* control cluster under the offer card */
+.door-console{margin-top:2px;border:1px solid var(--line);background:rgba(8,20,31,.72);
+  backdrop-filter:blur(6px);padding:13px 15px;gap:10px}
+.door-console .rlabel{font-size:.58rem;color:#93a3b1}
+.door-console .rvalue{font-size:.86rem;margin-top:3px}
+.door-console .console-btns{display:flex;gap:8px}
+.door-console .dbtn{padding:10px 13px;font-size:.62rem;letter-spacing:.1em}
+.door-console .dbtn[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#071018}
+.hero:has(#house.is-open) .door-console .lamp{background:var(--gold2);box-shadow:0 0 12px var(--gold2)}
+@media (max-width:640px){.door-console{padding:11px 12px}.door-console .dbtn{font-size:.58rem;padding:9px 10px}}
+@media (prefers-reduced-motion: reduce){
+  .hero-bg .door-leaf-img{transition:none!important}
+}
+
+/* the highlighted button is the action you can take now, not the state */
+.door-console .dbtn[aria-pressed="true"]{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.2);color:#dce7f0}
+.hero:not(:has(#house.is-open)) #openDoor,
+.hero:has(#house.is-open) #closeDoor{background:var(--gold);border-color:var(--gold);color:#071018}
+.hero:not(:has(#house.is-open)) #openDoor:hover,
+.hero:has(#house.is-open) #closeDoor:hover{background:var(--gold2);border-color:var(--gold2)}
+
+@media (max-width:640px){
+  .door-console{flex-direction:column;align-items:stretch;gap:10px}
+  .door-console .readout{justify-content:flex-start}
+  .door-console .console-btns{width:100%}
+  .door-console .dbtn{flex:1 1 0;padding:11px 6px;font-size:.6rem;white-space:nowrap;justify-content:center}
+}
+
+@media (max-width:950px){
+  .door-console{width:100%}
 }
